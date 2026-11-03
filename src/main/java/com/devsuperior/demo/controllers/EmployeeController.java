@@ -19,6 +19,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.devsuperior.demo.dto.EmployeeDTO;
 import com.devsuperior.demo.services.EmployeeService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/employees")
 public class EmployeeController {
@@ -36,7 +38,7 @@ public class EmployeeController {
 	
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	@PostMapping
-	public ResponseEntity<EmployeeDTO> insert(@RequestBody EmployeeDTO dto) {
+	public ResponseEntity<EmployeeDTO> insert(@Valid @RequestBody EmployeeDTO dto) {
 		dto = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(dto.getId()).toUri();
