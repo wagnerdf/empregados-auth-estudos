@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.devsuperior.demo.dto.DepartmentDTO;
 import com.devsuperior.demo.services.DepartmentService;
 
+/**
+ * Controller responsável por disponibilizar os endpoints relacionados aos departamentos.
+ */
 @RestController
 @RequestMapping(value = "/departments")
 public class DepartmentController {
@@ -19,6 +22,15 @@ public class DepartmentController {
 	@Autowired
 	private DepartmentService service;
 	
+	/**
+	 * Retorna a lista de todos os departamentos cadastrados.
+	 *
+	 * * Endpoint: GET /departments
+	 *
+	 * * Permissão: usuários com perfil ADMIN ou OPERATOR.
+	 *
+	 * @return ResponseEntity contendo a lista de departamentos e o status HTTP 200 (OK).
+	 */
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_OPERATOR')")
 	@GetMapping
 	public ResponseEntity<List<DepartmentDTO>> findAll() {
