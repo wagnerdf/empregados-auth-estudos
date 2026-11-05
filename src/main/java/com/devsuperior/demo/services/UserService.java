@@ -13,6 +13,10 @@ import com.devsuperior.demo.entities.User;
 import com.devsuperior.demo.projections.UserDetailsProjection;
 import com.devsuperior.demo.repositories.UserRepository;
 
+/**
+ * Serviço responsável por carregar os dados dos usuários e suas permissões
+ * durante o processo de autenticação do Spring Security.
+ */
 @Service
 public class UserService implements UserDetailsService {
 
@@ -20,6 +24,16 @@ public class UserService implements UserDetailsService {
 	private UserRepository repository;
 	
 
+	/**
+	 * Busca um usuário pelo email e carrega suas respectivas permissões.
+	 *
+	 * * Esse método é utilizado pelo Spring Security durante a autenticação.
+	 * Caso o email não seja encontrado, uma exceção é lançada.
+	 *
+	 * @param username email utilizado para identificar o usuário.
+	 * @return usuário contendo email, senha e suas autoridades.
+	 * @throws UsernameNotFoundException caso não exista usuário com o email informado.
+	 */
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
